@@ -16,8 +16,8 @@ export const RoutesPage = () => {
             <Route path='/new-password' element={<NewPassword/>}/>
             <Route path='/forgot-password' element={<ForgotPassword/>}/>
             <Route path='/404' element={<Page404/>}/>
+            <Route path='/' element={<Navigate to='/profile'/>}/>
             <Route path='*' element={<Navigate to='/404'/>}/>
-            <Route path={'/'} element={<Navigate to='/profile'/>}/>
         </Routes>
     </div>
 };

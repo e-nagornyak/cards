@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import {VisibilityOff} from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import {AppWrapper, FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
-import {Resolver, SubmitHandler, useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {loginTC} from '../auth-reducer';
 import {useNavigate} from 'react-router-dom';
@@ -22,19 +22,7 @@ type FormValues = {
     password: string;
     email: string;
 };
-// const resolver: Resolver<FormValues> = async (values) => {
-//     return {
-//         values: values.email ? values : {},
-//         errors: !values.email
-//             ? {
-//                 email: {
-//                     type: 'required',
-//                     message: 'This is required.',
-//                 },
-//             }
-//             : {},
-//     };
-// };
+
 export const Login: FC = () => {
     // для показування та приховування пароля
     const dispatch = useAppDispatch()

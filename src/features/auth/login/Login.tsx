@@ -32,7 +32,7 @@ export const Login: FC = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
     //форма
-    const {register, reset, handleSubmit, formState: {errors, isValid}} = useForm<FormValues>({
+    const {register, reset, handleSubmit, formState: {errors}} = useForm<FormValues>({
         defaultValues: {
             email: '',
             password: '',

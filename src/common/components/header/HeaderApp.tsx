@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import headerIcon from '../../../assets/image/icon_logo.svg'
+import {HeaderWrapper} from "../../../utils/StyledComponents/StyledComponents";
 
 export const HeaderApp = () => {
     // const dispatch = useAppDispatch()
@@ -12,12 +13,8 @@ export const HeaderApp = () => {
     //     dispatch(logoutTC())
     // }, [dispatch])
 
-    return <Box sx={{flexGrow: 1}}>
-        <AppBar position="static" color={'transparent'}>
-            <Toolbar disableGutters sx={{justifyContent: 'space-between', p: '0 68px'}}>
-                <img src={headerIcon} alt={'logo'}/>
-                {<Button sx={{borderRadius: '10%'}} variant={'contained'} color="primary">Sing in</Button>}
-            </Toolbar>
-        </AppBar>
-    </Box>
+    return <HeaderWrapper>
+        <img src={headerIcon} alt={'logo'}/>
+
+    </HeaderWrapper>
 }

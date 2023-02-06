@@ -35,14 +35,14 @@ export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 
 
 //thunks
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-    authAPI.me()
-        .then(res => {
-            console.log(res);
-            debugger
-        })
-        .catch((error: AxiosError) => {
-            console.log(error)
-        })
-        .finally(() => dispatch(setAppInitialized({isInitialized: true})))
+export const initializeAppTC = () => async (dispatch: Dispatch) => {
+    try {
+        const res = await authAPI.me()
+        console.log(res);
+        debugger
+    } catch (error: any) {
+        console.log(error.response.data.error)
+    } finally {
+        dispatch(setAppInitialized({isInitialized: true}))
+    }
 }

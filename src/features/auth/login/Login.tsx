@@ -13,7 +13,9 @@ import {VisibilityOff} from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import {AppWrapper, FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 import {Resolver, SubmitHandler, useForm} from 'react-hook-form';
-import {useAppDispatch} from '../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import {loginTC} from '../auth-reducer';
+import {useNavigate} from 'react-router-dom';
 
 type FormValues = {
     rememberMe: boolean;
@@ -36,6 +38,8 @@ type FormValues = {
 export const Login: FC = () => {
     // для показування та приховування пароля
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
@@ -49,10 +53,10 @@ export const Login: FC = () => {
     })
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         reset()
-
+        dispatch(loginTC(data))
         console.log(data);
     }
-
+    if (isLoggedIn) navigate('/profile')
     return <AppWrapper>
         <FormWrapper>
             <h2>Sing in</h2>

@@ -39,7 +39,6 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
     try {
         const res = await authAPI.me()
         console.log(res);
-        debugger
     } catch (error: any) {
         console.log(error.response.data.error)
     } finally {

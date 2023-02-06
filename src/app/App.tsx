@@ -26,6 +26,7 @@ export const App = () => {
 
     return <div className="App">
         <HashRouter>
+            <ErrorSnackbar/>
             <HeaderApp/>
             <RoutesPage/>
         </HashRouter>

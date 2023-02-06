@@ -1,20 +1,25 @@
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {AnyAction, combineReducers} from "redux";
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
+import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {appReducer} from "./reducer/app-reducer";
 
+// загальна структура нашого об'єкта стану
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    app: appReducer
 })
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
+// store
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+})
 
-// hooks
-export const useAppDispatch = () => useDispatch<AppDispatch>()
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+// type state
+export type AppRootStateType = ReturnType<typeof rootReducer>
 
 // types
-export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 

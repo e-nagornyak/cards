@@ -15,7 +15,7 @@ export const App = () => {
 
     useEffect(()=>{
         dispatch(initializeAppTC())
-    })
+    },[])
 
     if (!isInitialized) {
         return <div style={{width: "100%", position: 'fixed', top: "30%", textAlign: 'center'}}>

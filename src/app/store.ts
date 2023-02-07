@@ -3,11 +3,13 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
 import {appReducer} from "./reducer/app-reducer";
+import {profileReducer} from "../features/profile/profile-reducer";
 
 // загальна структура нашого об'єкта стану
 const rootReducer = combineReducers({
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    profile: profileReducer
 })
 
 // store

@@ -1,6 +1,6 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../../api/cards-api";
-import {AxiosError} from "axios";
+import {handleAppError} from "../../utils/error-utils";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -35,12 +35,14 @@ export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 
 
 //thunks
-export const initializeAppTC = () => async (dispatch: Dispatch) => {
+export const initializeAppTC = () => async (dispatch: any) => {
     try {
         const res = await authAPI.me()
         console.log(res);
     } catch (error: any) {
-        console.log(error.response.data.error)
+        if (error.message === 'Network Error') {
+            handleAppError(error, dispatch)
+        }
     } finally {
         dispatch(setAppInitialized({isInitialized: true}))
     }

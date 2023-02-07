@@ -14,7 +14,7 @@ export const FormWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 413px;
-  min-height: 408px;
+  min-height: 360px;
   background-color: #fff;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   flex-direction: column;
@@ -23,11 +23,34 @@ export const FormWrapper = styled.div`
 export const HeaderWrapper = styled.div`
   background: #FCFCFC;
   box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-  min-width: 100vh;
   padding: 0 68px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   min-height: 56px;
+`
+export const ErrorText = styled.p`
+  color: red;
+  margin: 0;
+  font-style: italic;
+`
+export const ProfileIcon = styled.img`
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+`
+export const ChangeIconWrapper = styled.div`
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 65%;
+  border: 1px solid white;
+  background-color: #808080;
+  cursor: pointer;
 `

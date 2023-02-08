@@ -4,15 +4,12 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import {VisibilityOff} from '@mui/icons-material';
-import Visibility from '@mui/icons-material/Visibility';
-import {AppWrapper, ErrorText, FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {loginTC} from '../auth-reducer';
+import {AppWrapper, ErrorText, FormWrapper} from '../../utils/StyledComponents/StyledComponents';
+import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {loginTC} from './auth-reducer';
 import {NavLink, useNavigate} from 'react-router-dom';
+import {SuperInput} from "../SuperInput";
 
 type FormValues = {
     rememberMe: boolean;
@@ -26,12 +23,10 @@ export const Login: FC = () => {
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
+
 
     // форма
-    const {register, reset, handleSubmit, formState: {errors}} = useForm<FormValues>({
+    const {control, register, reset, handleSubmit, formState: {errors}} = useForm<FormValues>({
         defaultValues: {
             email: '',
             password: '',
@@ -61,43 +56,27 @@ export const Login: FC = () => {
                     })}
                 />
                 {errors?.email && <ErrorText>{errors.email.message}</ErrorText>}
-                <TextField
-                    type={showPassword ? 'text' : 'password'}
-                    label="Password"
-                    {...register('password', {
+                <Controller
+                    name="password"
+                    control={control}
+                    rules={{
                         required: 'Password is required',
-                        minLength: {
-                            value: 8,
-                            message: 'Min 8 characters'
-                        },
-                        maxLength: {
-                            value: 36,
-                            message: 'Max 36 characters'
-                        }
-                    })}
-                    margin="normal"
-                    InputProps={{
-                        endAdornment:
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                >
-                                    {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                </IconButton>
-                            </InputAdornment>
+                        minLength: {value: 8, message: 'Min 8 characters'},
+                        maxLength: {value: 36, message: 'Max 36 characters'}
                     }}
+                    render={({field}) => <SuperInput
+                        margin={'normal'}
+                        type={'password'}
+                        error={!!errors.password?.message}
+                        name={field.name}
+                        onBlur={field.onBlur}
+                        onChange={field.onChange}
+                        value={field.value}/>}
                 />
                 {errors?.password && <ErrorText>{errors.password.message}</ErrorText>}
                 <FormControlLabel
-
                     label={'Remember me'}
-                    control={
-                        <Checkbox
-                            {...register('rememberMe')}
-                        />
-                    }/>
+                    control={<Checkbox {...register('rememberMe')} />}/>
                 <NavLink to={'/forgot-password'}>Forgot Password?</NavLink>
                 <Button
                     disabled={status === 'loading'}

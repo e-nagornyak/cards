@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {FormWrapper} from "../../../utils/StyledComponents/StyledComponents";
+import {FormWrapper} from "../../utils/StyledComponents/StyledComponents";
 import FormGroup from "@mui/material/FormGroup";
 
 export const Signup: FC = () => {

@@ -22,8 +22,14 @@ export const authAPI = {
     }
 }
 
+export const profileAPI = {
+    updateProfile(model: updateProfileRequest) {
+        return instance.put('/auth/me', model)
+    }
+}
 
-export type LoginParamsType= {
+
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean
@@ -50,3 +56,4 @@ type RegisterResponseType = {
     addedUser: AuthResponseType
     error?: string
 }
+export type updateProfileRequest = { name: string } | { avatar: string }

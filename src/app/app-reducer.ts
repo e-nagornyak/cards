@@ -1,6 +1,7 @@
-import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI} from "../../api/cards-api";
-import {handleAppError} from "../../utils/error-utils";
+import {createSlice,  PayloadAction} from "@reduxjs/toolkit";
+import {authAPI} from "../api/cards-api";
+import {handleAppError} from "../utils/error-utils";
+import {setIsLoggedIn} from "../features/auth/auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -38,7 +39,10 @@ export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 export const initializeAppTC = () => async (dispatch: any) => {
     try {
         const res = await authAPI.me()
-        console.log(res);
+        if (res.status === 200) {
+            dispatch(setAppInitialized({isInitialized: true}))
+            dispatch(setIsLoggedIn({value: true}))
+        }
     } catch (error: any) {
         if (error.message === 'Network Error') {
             handleAppError(error, dispatch)

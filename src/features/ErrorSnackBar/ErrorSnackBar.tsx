@@ -1,6 +1,6 @@
 import React from 'react'
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {setAppError} from "../../app/reducer/app-reducer";
+import {setAppError} from "../../app/app-reducer";
 import Snackbar from '@mui/material/Snackbar/Snackbar';
 import Alert from '@mui/material/Alert/Alert';
 

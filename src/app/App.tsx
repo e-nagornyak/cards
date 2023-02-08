@@ -2,11 +2,11 @@ import React, {useEffect} from 'react';
 import {RoutesPage} from "../common/components/routes/RoutesPage";
 import {HeaderApp} from "../common/components/header/HeaderApp";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
-import {CircularProgress, Container, LinearProgress, Snackbar} from "@mui/material";
-import {initializeAppTC} from "./reducer/app-reducer";
+import {CircularProgress, LinearProgress} from "@mui/material";
+import {initializeAppTC} from "./app-reducer";
 import './App.css';
 import {ErrorSnackbar} from "../features/ErrorSnackBar/ErrorSnackBar";
-import {AppWrapper} from "../utils/StyledComponents/StyledComponents";
+import {AppWrapper, FormWrapper} from "../utils/StyledComponents/StyledComponents";
 
 export const App = () => {
     const dispatch = useAppDispatch()
@@ -28,7 +28,9 @@ export const App = () => {
         {status === "loading" && <LinearProgress color="secondary"/>}
         <AppWrapper>
             <ErrorSnackbar/>
-            <RoutesPage/>
+            <FormWrapper>
+                <RoutesPage/>
+            </FormWrapper>
         </AppWrapper>
     </div>
 }

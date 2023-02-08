@@ -1,10 +1,10 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {AppWrapper, ErrorText, FormWrapper} from '../../utils/StyledComponents/StyledComponents';
+import { ErrorText} from '../../utils/StyledComponents/StyledComponents';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {loginTC} from './auth-reducer';
@@ -18,7 +18,6 @@ type FormValues = {
 };
 
 export const Login: FC = () => {
-    // для показування та приховування пароля
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
@@ -40,7 +39,7 @@ export const Login: FC = () => {
 
     if (isLoggedIn) navigate('/profile')
 
-    return <FormWrapper>
+    return <>
         <h2>Sing in</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
@@ -67,13 +66,12 @@ export const Login: FC = () => {
                     render={({field}) => <SuperInput
                         margin={'normal'}
                         type={'password'}
-                        error={!!errors.password?.message}
-                        name={field.name}
+                        error={errors.password}
+                        name={'Password'}
                         onBlur={field.onBlur}
                         onChange={field.onChange}
                         value={field.value}/>}
                 />
-                {errors?.password && <ErrorText>{errors.password.message}</ErrorText>}
                 <FormControlLabel
                     label={'Remember me'}
                     control={<Checkbox {...register('rememberMe')} />}/>
@@ -90,5 +88,5 @@ export const Login: FC = () => {
                 <NavLink to={'/signup'}>Sing Up</NavLink>
             </FormGroup>
         </form>
-    </FormWrapper>
+    </>
 };

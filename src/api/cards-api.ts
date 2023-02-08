@@ -13,7 +13,7 @@ export const authAPI = {
         return instance.delete<{ info: string }>('auth/me')
     },
     register(data: LoginParamsType) {
-        return instance.post<RegisterResponseType>('/auth/register', data)
+        return instance.post<RegisterResponseType>('auth/register', data)
     },
     me() {
         return instance.post<AuthResponseType>('auth/me')

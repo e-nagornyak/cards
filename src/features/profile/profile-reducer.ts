@@ -4,6 +4,16 @@ import {setAppStatus} from "../../app/app-reducer";
 import {handleAppError} from "../../utils/error-utils";
 import {AxiosError} from "axios";
 
+type ProfileType = {
+    _id: string
+    email: string
+    name: string
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    avatar: string
+    rememberMe: boolean
+}
 
 // state
 const initialState = {
@@ -16,13 +26,12 @@ const initialState = {
     avatar: "",
     rememberMe: false,
 }
-type ProfileType = typeof initialState
 // створюємо reducer and AC
 const slice = createSlice({
     name: 'profile',
     initialState: initialState,
     reducers: {
-        setProfile(state, action: PayloadAction<{ profile: any }>) {
+        setProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
             // state = {...action.payload.profile}
             state._id = action.payload.profile._id
             state.email = action.payload.profile.email
@@ -52,20 +61,17 @@ export const fetchProfileTC = () => async (dispatch: Dispatch) => {
     try {
         const res = await authAPI.me()
         dispatch(setProfile({profile: res.data}))
-        // console.log(res);
-    } catch (error: any) {
-        // handleAppError(error, dispatch)
+    } catch (error) {
+        handleAppError(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
 }
-export const updateNameTC = (title: string) => async (dispatch: Dispatch) => {
+export const updateNameTC = (name: string) => async (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
-        const res = await profileAPI.updateProfile({name: title})
-        if (res.status === 200) {
-            dispatch(updateNameProfile({name: title}))
-        }
+        const res = await profileAPI.updateProfile({name})
+        dispatch(updateNameProfile({name}))
     } catch (error) {
         handleAppError(error as AxiosError, dispatch)
     } finally {
@@ -76,9 +82,7 @@ export const updateAvatarTC = (avatar: string) => async (dispatch: Dispatch) => 
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await profileAPI.updateProfile({avatar})
-        if (res.status === 200) {
-            dispatch(updatePhotoProfile({avatar}))
-        }
+        dispatch(updatePhotoProfile({avatar}))
     } catch (error) {
         handleAppError(error as AxiosError, dispatch)
     } finally {

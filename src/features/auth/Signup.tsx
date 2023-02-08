@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import {FormWrapper} from "../../utils/StyledComponents/StyledComponents";
 import FormGroup from "@mui/material/FormGroup";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {NavLink, useNavigate} from "react-router-dom";
@@ -39,7 +38,7 @@ export const Signup: FC = () => {
 
     if (isLoggedIn) navigate('/profile')
 
-    return <FormWrapper>
+    return <>
         <h2>Sing Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
@@ -109,7 +108,7 @@ export const Signup: FC = () => {
                 <NavLink to={'/login'}>Sing Ip</NavLink>
             </FormGroup>
         </form>
-    </FormWrapper>
+    </>
 };
 
 

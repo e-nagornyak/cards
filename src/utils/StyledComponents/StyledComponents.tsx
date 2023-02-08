@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from "styled-components";
 
 export const AppWrapper = styled.div`
@@ -11,9 +10,9 @@ export const AppWrapper = styled.div`
 
 export const FormWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 413px;
+  width: 375px;
   min-height: 360px;
   background-color: #fff;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -22,7 +21,7 @@ export const FormWrapper = styled.div`
 `
 export const HeaderWrapper = styled.div`
   background: #FCFCFC;
-  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   padding: 0 68px;
   display: flex;
   justify-content: space-between;

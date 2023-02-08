@@ -6,14 +6,16 @@ import {Profile} from "../../../features/profile/Profile";
 import {Page404} from "../page404/Page404";
 import {NewPassword} from "../../../features/auth/New-password";
 import {ForgotPassword} from "../../../features/auth/Forgot-password";
+import {CheckEmail} from "../../../features/auth/Check-email";
 
 export const RoutesPage = () => {
     return <Routes>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/profile' element={<Profile/>}/>
-        <Route path='/new-password' element={<NewPassword/>}/>
+        <Route path='/set-new-password/:token' element={<NewPassword/>}/>
         <Route path='/forgot-password' element={<ForgotPassword/>}/>
+        <Route path='/forgot-password/check-email' element={<CheckEmail/>}/>
         <Route path='/404' element={<Page404/>}/>
         <Route path='/' element={<Navigate to='/profile'/>}/>
         <Route path='*' element={<Navigate to='/404'/>}/>

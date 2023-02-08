@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ErrorText} from '../../utils/StyledComponents/StyledComponents';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
@@ -10,6 +9,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {loginTC} from './auth-reducer';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {SuperInput} from "../SuperInput";
+import {TextField} from "@mui/material";
 
 type FormValues = {
     rememberMe: boolean;

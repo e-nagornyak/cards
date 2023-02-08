@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 })
 
@@ -18,8 +19,22 @@ export const authAPI = {
     me() {
         return instance.post<AuthResponseType>('auth/me')
     },
-    ping() {
-    }
+    forgot(email: string) {
+        const message = {
+            email: `${email}`,
+            from: "test-front-admin <test@email.com>",
+            message: `<div style="padding: 15px">
+        password recovery link: 
+        <a href='http://localhost:3000/#/set-new-password/$token$'>
+        link</a>
+         </div>`
+        }
+
+        return axios.post('https://neko-back.herokuapp.com/2.0/auth/forgot', message)
+    },
+    setNewPassword(data:typeForNewPassword) {
+        return instance.post('/auth/set-new-password', data)
+    },
 }
 
 export const profileAPI = {
@@ -45,10 +60,10 @@ export type AuthResponseType = {
     publicCardPacksCount: number
     created: string
     updated: string
+    avatar: string
     __v: number
     token?: string
     tokenDeathTime?: number
-    avatar?: string
     error?: string;
 }
 
@@ -56,4 +71,9 @@ type RegisterResponseType = {
     addedUser: AuthResponseType
     error?: string
 }
+export type typeForNewPassword = {
+    password: string
+    resetPasswordToken: string
+}
+
 export type updateProfileRequest = { name: string } | { avatar: string }

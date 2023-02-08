@@ -1,5 +1,5 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI, LoginParamsType} from '../../api/cards-api';
+import {authAPI, LoginParamsType, typeForNewPassword} from '../../api/cards-api';
 import {setAppStatus} from '../../app/app-reducer';
 import {handleAppError} from "../../utils/error-utils";
 import {AxiosError} from "axios";
@@ -56,6 +56,28 @@ export const registerTC = (data: LoginParamsType) => async (dispatch: Dispatch) 
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await authAPI.register(data)
+    } catch (error) {
+        handleAppError(error as AxiosError, dispatch)
+    } finally {
+        dispatch(setAppStatus({status: 'idle'}))
+    }
+}
+
+export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatus({status: 'loading'}))
+    try {
+        const res = await authAPI.forgot(email)
+    } catch (error) {
+        handleAppError(error as AxiosError, dispatch)
+    } finally {
+        dispatch(setAppStatus({status: 'idle'}))
+    }
+}
+export const setNewPasswordTC = (data: typeForNewPassword) => async (dispatch: Dispatch) => {
+    dispatch(setAppStatus({status: 'loading'}))
+    try {
+        debugger
+        const res = await authAPI.setNewPassword(data)
     } catch (error) {
         handleAppError(error as AxiosError, dispatch)
     } finally {

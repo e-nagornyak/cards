@@ -1,12 +1,12 @@
 import React from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
-import {Login} from "../../../features/auth/Login";
 import {Signup} from "../../../features/auth/Signup";
 import {Profile} from "../../../features/profile/Profile";
 import {Page404} from "../page404/Page404";
 import {NewPassword} from "../../../features/auth/New-password";
 import {ForgotPassword} from "../../../features/auth/Forgot-password";
 import {CheckEmail} from "../../../features/auth/Check-email";
+import {Login} from "../../../features/auth/Login";
 
 export const RoutesPage = () => {
     return <Routes>

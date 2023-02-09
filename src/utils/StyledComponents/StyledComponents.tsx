@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const AppWrapper = styled.div`
   height: 90vh;
@@ -52,4 +52,20 @@ export const ChangeIconWrapper = styled.div`
   border: 1px solid white;
   background-color: #808080;
   cursor: pointer;
+`
+export const LinkForgot = styled.a`
+  text-decoration: none;
+  text-align: end;
+  margin-bottom: 60px;
+  margin-top: 19px;
+`
+export const LinkSign = styled.a`
+  text-decoration: none;
+  text-align: center;
+
+`
+export const ParagraphForgot = styled.p`
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
 `

@@ -6,6 +6,7 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import {forgotPasswordTC} from "./auth-reducer";
+import {ParagraphForgot} from '../../utils/StyledComponents/StyledComponents';
 
 
 export const ForgotPassword: FC = () => {
@@ -63,6 +64,9 @@ export const ForgotPassword: FC = () => {
                 >
                     Send Instructions
                 </Button>
+                <ParagraphForgot>
+                    <p>Did you remember your password?</p>
+                </ParagraphForgot>
             </FormGroup>
         </form>
         <NavLink color={'#366EFF'} to={'/login'}>Try logging in</NavLink>

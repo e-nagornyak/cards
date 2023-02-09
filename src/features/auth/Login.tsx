@@ -3,13 +3,13 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { ErrorText} from '../../utils/StyledComponents/StyledComponents';
+import {ErrorText, LinkForgot, LinkSign} from '../../utils/StyledComponents/StyledComponents';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {loginTC} from './auth-reducer';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {SuperInput} from "../SuperInput";
-import {TextField} from "@mui/material";
+import {SuperInput} from '../SuperInput';
+import {TextField} from '@mui/material';
 
 type FormValues = {
     rememberMe: boolean;
@@ -75,7 +75,9 @@ export const Login: FC = () => {
                 <FormControlLabel
                     label={'Remember me'}
                     control={<Checkbox {...register('rememberMe')} />}/>
-                <NavLink to={'/forgot-password'}>Forgot Password?</NavLink>
+                <LinkForgot>
+                    <NavLink style={{textDecoration:'none'}} to={'/forgot-password'}>Forgot Password?</NavLink>
+                </LinkForgot>
                 <Button
                     disabled={status === 'loading'}
                     type={'submit'}
@@ -84,8 +86,10 @@ export const Login: FC = () => {
                 >
                     Sing in
                 </Button>
-                <p>Already have an account?</p>
-                <NavLink to={'/signup'}>Sing Up</NavLink>
+                <p style={{textAlign:'center'}}>Already have an account?</p>
+                <LinkSign>
+                    <NavLink to={'/signup'}>Sing Up</NavLink>
+                </LinkSign>
             </FormGroup>
         </form>
     </>

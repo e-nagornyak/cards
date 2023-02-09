@@ -42,9 +42,8 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await authAPI.logout()
-        if (res.status === 200) {
             dispatch(setIsLoggedIn({value: false}))
-        }
+
     } catch (error) {
         handleAppError(error as AxiosError, dispatch)
     } finally {
@@ -76,7 +75,6 @@ export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) =>
 export const setNewPasswordTC = (data: typeForNewPassword) => async (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
-        debugger
         const res = await authAPI.setNewPassword(data)
     } catch (error) {
         handleAppError(error as AxiosError, dispatch)

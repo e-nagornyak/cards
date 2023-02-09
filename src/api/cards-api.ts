@@ -25,7 +25,7 @@ export const authAPI = {
             from: "test-front-admin <test@email.com>",
             message: `<div style="padding: 15px">
         password recovery link: 
-        <a href='https://e-nagornyak.github.io/#/set-new-password/$token$'>
+        <a href='https://e-nagornyak.github.io/cards/#/set-new-password/$token$'>
         link</a>
          </div>`
         }

@@ -5,6 +5,7 @@ const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 })
+const link = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/#/set-new-password/$token$' : 'https://e-nagornyak.github.io/cards/#/set-new-password/$token$'
 
 export const authAPI = {
     login(data: LoginParamsType) {
@@ -25,7 +26,7 @@ export const authAPI = {
             from: "test-front-admin <test@email.com>",
             message: `<div style="padding: 15px">
         password recovery link: 
-        <a href='https://e-nagornyak.github.io/cards/#/set-new-password/$token$'>
+        <a href={link}>
         link</a>
          </div>`
         }

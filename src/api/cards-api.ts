@@ -25,7 +25,7 @@ export const authAPI = {
             from: "test-front-admin <test@email.com>",
             message: `<div style="padding: 15px">
         password recovery link: 
-        <a href='http://localhost:3000/#/set-new-password/$token$'>
+        <a href='https://neko-back.herokuapp.com/2.0/#/set-new-password/$token$'>
         link</a>
          </div>`
         }

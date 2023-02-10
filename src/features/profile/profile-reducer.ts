@@ -1,7 +1,7 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, profileAPI} from "../../api/cards-api";
 import {setAppStatus} from "../../app/app-reducer";
-import {handleAppError} from "../../utils/error-utils";
+import {errorUtils} from "../../utils/error-utils";
 import {AxiosError} from "axios";
 
 type ProfileType = {
@@ -62,7 +62,7 @@ export const fetchProfileTC = () => async (dispatch: Dispatch) => {
         const res = await authAPI.me()
         dispatch(setProfile({profile: res.data}))
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -73,7 +73,7 @@ export const updateNameTC = (name: string) => async (dispatch: Dispatch) => {
         const res = await profileAPI.updateProfile({name})
         dispatch(updateNameProfile({name}))
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -84,7 +84,7 @@ export const updateAvatarTC = (avatar: string) => async (dispatch: Dispatch) => 
         const res = await profileAPI.updateProfile({avatar})
         dispatch(updatePhotoProfile({avatar}))
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }

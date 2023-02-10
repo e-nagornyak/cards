@@ -1,7 +1,8 @@
-import {createSlice,  PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../api/cards-api";
-import {handleAppError} from "../utils/error-utils";
+import {errorUtils} from "../utils/error-utils";
 import {setIsLoggedIn} from "../features/auth/auth-reducer";
+import {AxiosError} from "axios";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -19,7 +20,7 @@ const slice = createSlice({
     name: 'app',
     initialState: initialState,
     reducers: {
-        setAppError(state, action: PayloadAction<{ error: null | string }>) {
+        setAppError(state, action: PayloadAction<{ error: string | null }>) {
             state.error = action.payload.error
         },
         setAppStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
@@ -39,14 +40,10 @@ export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 export const initializeAppTC = () => async (dispatch: any) => {
     try {
         const res = await authAPI.me()
-        if (res.status === 200) {
-            dispatch(setAppInitialized({isInitialized: true}))
-            dispatch(setIsLoggedIn({value: true}))
-        }
-    } catch (error: any) {
-        if (error.message === 'Network Error') {
-            handleAppError(error, dispatch)
-        }
+        dispatch(setAppInitialized({isInitialized: true}))
+        dispatch(setIsLoggedIn({value: true}))
+    } catch (error) {
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppInitialized({isInitialized: true}))
     }

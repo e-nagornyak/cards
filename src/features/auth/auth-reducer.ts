@@ -1,7 +1,7 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, LoginParamsType, typeForNewPassword} from '../../api/cards-api';
 import {setAppStatus} from '../../app/app-reducer';
-import {handleAppError} from "../../utils/error-utils";
+import {errorUtils} from "../../utils/error-utils";
 import {AxiosError} from "axios";
 
 
@@ -30,9 +30,8 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
     try {
         const res = await authAPI.login(data)
         dispatch(setIsLoggedIn({value: true}))
-        console.log(res);
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -42,10 +41,9 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await authAPI.logout()
-            dispatch(setIsLoggedIn({value: false}))
-
+        dispatch(setIsLoggedIn({value: false}))
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -56,7 +54,7 @@ export const registerTC = (data: LoginParamsType) => async (dispatch: Dispatch) 
     try {
         const res = await authAPI.register(data)
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -67,7 +65,7 @@ export const forgotPasswordTC = (email: string) => async (dispatch: Dispatch) =>
     try {
         const res = await authAPI.forgot(email)
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }
@@ -77,7 +75,7 @@ export const setNewPasswordTC = (data: typeForNewPassword) => async (dispatch: D
     try {
         const res = await authAPI.setNewPassword(data)
     } catch (error) {
-        handleAppError(error as AxiosError, dispatch)
+        errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppStatus({status: 'idle'}))
     }

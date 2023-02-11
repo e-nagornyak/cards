@@ -1,14 +1,13 @@
 import React from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
-import {Signup} from '../../../features/auth/Signup';
 import {Profile} from '../../../features/profile/Profile';
 import {Page404} from '../page404/Page404';
-import {NewPassword} from '../../../features/auth/New-password';
-import {ForgotPassword} from '../../../features/auth/Forgot-password';
 import {CheckEmail} from '../../../features/auth/Check-email';
-import {Login} from '../../../features/auth/Login';
-import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 import Packs from '../../../features/packs/Packs';
+import {Login} from "../../../features/auth/login/Login";
+import {Signup} from "../../../features/auth/signup/Signup";
+import {NewPassword} from "../../../features/auth/new-password/New-password";
+import {ForgotPassword} from "../../../features/auth/forgot-password/Forgot-password";
 
 export const RoutesPage = () => {
     return <Routes>

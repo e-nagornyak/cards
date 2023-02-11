@@ -14,6 +14,7 @@ export const App = () => {
     const isInitialized = useAppSelector(state => state.app.isInitialized)
 
     useEffect(() => {
+        console.log('App rendering')
         dispatch(initializeAppTC())
     }, [])
 

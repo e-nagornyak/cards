@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import sendIcon from "../../assets/image/send-message.svg"
 
 export const CheckEmail = () => {
+    const [email, setEmail] = useState<string | null>('')
     const navigate = useNavigate()
-    const email = sessionStorage.getItem('email')
+
+    useEffect(() => {
+        setEmail(sessionStorage.getItem('email'))
+    }, [email])
+
     const onClickHandler = () => navigate('/login')
 
     return (

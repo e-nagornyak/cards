@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import {ErrorText, LinkForgot, LinkSign} from '../../utils/StyledComponents/StyledComponents';
+import {ErrorText} from '../../utils/StyledComponents/StyledComponents';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {loginTC} from './auth-reducer';
@@ -23,9 +23,7 @@ export const Login: FC = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
 
-
-    // форма
-    const {control, register, reset, handleSubmit, formState: {errors}} = useForm<FormValues>({
+    const {control, register, handleSubmit, formState: {errors}} = useForm<FormValues>({
         defaultValues: {
             email: '',
             password: '',
@@ -34,13 +32,12 @@ export const Login: FC = () => {
     })
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         dispatch(loginTC(data))
-        reset()
     }
 
     if (isLoggedIn) navigate('/profile')
 
     return <>
-        <h2>Sing in</h2>
+        <h2>Sign in</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
                 <TextField
@@ -75,21 +72,17 @@ export const Login: FC = () => {
                 <FormControlLabel
                     label={'Remember me'}
                     control={<Checkbox {...register('rememberMe')} />}/>
-                <LinkForgot>
-                    <NavLink style={{textDecoration:'none'}} to={'/forgot-password'}>Forgot Password?</NavLink>
-                </LinkForgot>
+                <NavLink style={{textDecoration: 'none'}} to={'/forgot-password'}>Forgot Password?</NavLink>
                 <Button
                     disabled={status === 'loading'}
                     type={'submit'}
                     variant={'contained'}
                     color={'primary'}
                 >
-                    Sing in
+                    Sign in
                 </Button>
-                <p style={{textAlign:'center'}}>Already have an account?</p>
-                <LinkSign>
-                    <NavLink to={'/signup'}>Sing Up</NavLink>
-                </LinkSign>
+                <p style={{textAlign: 'center'}}>Already have an account?</p>
+                <NavLink to={'/signup'}>Sign Up</NavLink>
             </FormGroup>
         </form>
     </>

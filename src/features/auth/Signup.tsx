@@ -18,8 +18,9 @@ export const Signup: FC = () => {
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
-    // форма
-    const {control, reset, handleSubmit, setError, formState: {errors}} = useForm<FormValues>({
+    const isRegistered = useAppSelector(state => state.auth.isRegistered)
+
+    const {control, handleSubmit, setError, formState: {errors}} = useForm<FormValues>({
         defaultValues: {
             email: '',
             password: '',
@@ -29,8 +30,9 @@ export const Signup: FC = () => {
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         if (data.password === data.confirmPassword) {
             dispatch(registerTC({email: data.email, password: data.password}))
-            reset()
-            navigate('/login')
+            if (isRegistered) {
+                navigate('/login')
+            }
         } else {
             setError("confirmPassword", {type: 'custom', message: 'custom message'})
         }

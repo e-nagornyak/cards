@@ -107,7 +107,7 @@ export const Signup: FC = () => {
                     Sing Up
                 </Button>
                 <p>Already have an account?</p>
-                <NavLink to={'/login'}>Sing Ip</NavLink>
+                <NavLink to={'/login'}>Sing Up</NavLink>
             </FormGroup>
         </form>
     </>

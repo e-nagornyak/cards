@@ -28,3 +28,8 @@
 .link-sign-up{
     text-align:center;
 }
+.table-pagination{
+    position: relative;
+    left: 0;
+    bottom: 0;
+}

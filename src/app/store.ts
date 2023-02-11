@@ -4,12 +4,14 @@ import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
 import {appReducer} from "./app-reducer";
 import {profileReducer} from "../features/profile/profile-reducer";
+import {packsReducer} from '../features/packs/packs-reducer';
 
 // загальна структура нашого об'єкта стану
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    packs: packsReducer
 })
 
 // store

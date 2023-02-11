@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
     // baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -23,7 +23,7 @@ export const authAPI = {
     forgot(email: string) {
         const message = {
             email: `${email}`,
-            from: "test-front-admin <test@email.com>",
+            from: 'test-front-admin <test@email.com>',
             message: `<div style="padding: 15px">
         password recovery link: 
         <a href={link}>
@@ -33,7 +33,7 @@ export const authAPI = {
 
         return axios.post('https://neko-back.herokuapp.com/2.0/auth/forgot', message)
     },
-    setNewPassword(data:typeForNewPassword) {
+    setNewPassword(data: typeForNewPassword) {
         return instance.post('/auth/set-new-password', data)
     },
 }
@@ -43,8 +43,28 @@ export const profileAPI = {
         return instance.put('/auth/me', model)
     }
 }
+export const packsAPI = {
 
-
+    getPacks(params:any){
+    return instance.get<PacksResponseType>(`/cards/pack`,params)
+}
+}
+type CardType = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: string
+}
+export type PacksResponseType = {
+    cardPacks: Array<CardType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
 export type LoginParamsType = {
     email: string
     password: string

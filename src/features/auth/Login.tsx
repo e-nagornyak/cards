@@ -40,7 +40,7 @@ export const Login: FC = () => {
     if (isLoggedIn) navigate('/profile')
 
     return <>
-        <h2>Sing in</h2>
+        <h2>Sign in</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
                 <TextField
@@ -84,11 +84,11 @@ export const Login: FC = () => {
                     variant={'contained'}
                     color={'primary'}
                 >
-                    Sing in
+                    Sign in
                 </Button>
                 <p style={{textAlign:'center'}}>Already have an account?</p>
                 <LinkSign>
-                    <NavLink to={'/signup'}>Sing Up</NavLink>
+                    <NavLink to={'/signup'}>Sign Up</NavLink>
                 </LinkSign>
             </FormGroup>
         </form>

@@ -39,7 +39,7 @@ export const Signup: FC = () => {
     if (isLoggedIn) navigate('/profile')
 
     return <>
-        <h2>Sing Up</h2>
+        <h2>Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
                 <Controller
@@ -102,10 +102,10 @@ export const Signup: FC = () => {
                     variant={'contained'}
                     color={'primary'}
                 >
-                    Sing Up
+                    Sign Up
                 </Button>
                 <p>Already have an account?</p>
-                <NavLink to={'/login'}>Sing Ip</NavLink>
+                <NavLink style={{textAlign:'center'}} to={'/login'}>Sign Up</NavLink>
             </FormGroup>
         </form>
     </>

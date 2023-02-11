@@ -75,7 +75,7 @@ export const Login: FC = () => {
                     <FormControlLabel
                         label={'Remember me'}
                         control={<Checkbox {...register('rememberMe')} />}/>
-                    <NavLink className={'link-forgot-password'} style={{textDecoration: 'none'}}
+                    <NavLink className={'link-forgot-password'}
                              to={'/forgot-password'}>Forgot Password?</NavLink>
                     <Button
                         disabled={status === 'loading'}
@@ -86,7 +86,7 @@ export const Login: FC = () => {
                         Sign in
                     </Button>
                     <p style={{textAlign: 'center'}}>Already have an account?</p>
-                    <NavLink to={'/signup'}>Sign Up</NavLink>
+                    <NavLink className={'link-sign-up'} to={'/signup'}>Sign Up</NavLink>
                 </FormGroup>
             </form>
         </FormWrapper>

@@ -17,4 +17,14 @@
 }
 .link-forgot-password{
     text-decoration: none;
+    text-align: end;
+    margin-bottom: 30px;
+}
+.forgot-password-paragraph{
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+}
+.link-sign-up{
+    text-align:center;
 }

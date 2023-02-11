@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import sendIcon from "../../assets/image/send-message.svg"
+import {FormWrapper} from '../../utils/StyledComponents/StyledComponents';
 
 export const CheckEmail = () => {
     const [email, setEmail] = useState<string | null>('')
@@ -15,6 +16,7 @@ export const CheckEmail = () => {
 
     return (
         <>
+            <FormWrapper>
             <h2>Check Email</h2>
             <img src={sendIcon} alt="send icon"/>
             <p style={{textAlign: 'center'}}>{`We’ve sent an Email with instructions to ${email}`}</p>
@@ -27,6 +29,7 @@ export const CheckEmail = () => {
             >
                 Back to login
             </Button>
+            </FormWrapper>
         </>
     );
 };

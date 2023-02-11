@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {initializeAppTC} from './app-reducer';
 import './App.css';
+import './../../utils/style/style.css'
 import {AppWrapper, FormWrapper} from '../utils/StyledComponents/StyledComponents';
 import {ErrorSnackbar} from '../features/ErrorSnackBar/ErrorSnackBar';
 
@@ -19,7 +20,7 @@ export const App = () => {
     }, [])
 
     if (!isInitialized) {
-        return <div style={{width: '100%', position: 'fixed', top: '30%', textAlign: 'center'}}>
+        return <div className={'circular-progress'}>
             <CircularProgress size={80}/>
         </div>
     }
@@ -29,9 +30,7 @@ export const App = () => {
         {status === 'loading' && <LinearProgress color="secondary"/>}
         <AppWrapper>
             <ErrorSnackbar/>
-            <FormWrapper>
-                <RoutesPage/>
-            </FormWrapper>
+            <RoutesPage/>
         </AppWrapper>
     </div>
 }

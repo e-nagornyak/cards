@@ -1,12 +1,14 @@
 import React, {FC, useEffect} from 'react';
-import {Navigate} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {ChangeIconWrapper, ProfileIcon} from '../../utils/StyledComponents/StyledComponents';
+import {ChangeIconWrapper, FormWrapper, ProfileIcon} from '../../utils/StyledComponents/StyledComponents';
 import avatar from '../../assets/image/avatar.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import {fetchProfileTC, updateNameTC} from './profile-reducer';
 import {EditableSpan} from '../EditableSpan';
 import {logoutTC} from '../auth/auth-reducer';
+import arrow from '../../assets/image/Lesson 1/arrow.svg'
+import './../../utils/style/style.css'
 
 export const Profile: FC = () => {
     const dispatch = useAppDispatch()
@@ -17,7 +19,9 @@ export const Profile: FC = () => {
         dispatch(fetchProfileTC())
     }, [])
 
-    if (!isLoggedIn) return <Navigate to={'/login'}/>
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     // dispatch(updateAvatarTC(avatar))
     const changePhotoHandler = () => alert('Avatarka')
@@ -25,18 +29,27 @@ export const Profile: FC = () => {
     const logoutHandler = () => dispatch(logoutTC())
 
     return <>
-        <h2>Personal Information</h2>
-        <div style={{position: 'relative'}}>
-            {/*<ProfileIcon src={profile.avatar ? profile.avatar : avatar} alt="avat"/>*/}
-            <ProfileIcon src={avatar} alt="avat"/>
-            <ChangeIconWrapper onClick={changePhotoHandler}>
-                <PhotoCameraIcon sx={{color: 'white'}}/>
-            </ChangeIconWrapper>
+        <div className={'profile-back-packs'}>
+            <img src={arrow} alt="arrow"/>
+            <NavLink className={'profile-link-to-back'} to={'/packs'}>
+                Back to Packs List
+            </NavLink>
         </div>
 
-        <EditableSpan onChange={changeTitleHandler} title={profile.name}></EditableSpan>
-        <p>{profile.email}</p>
-        <button onClick={logoutHandler}>Log Out</button>
+        <FormWrapper>
+            <h2>Personal Information</h2>
+            <div style={{position: 'relative'}}>
+                {/*<ProfileIcon src={profile.avatar ? profile.avatar : avatar} alt="avat"/>*/}
+                <ProfileIcon src={avatar} alt="avat"/>
+                <ChangeIconWrapper onClick={changePhotoHandler}>
+                    <PhotoCameraIcon sx={{color: 'white'}}/>
+                </ChangeIconWrapper>
+            </div>
+
+            <EditableSpan onChange={changeTitleHandler} title={profile.name}></EditableSpan>
+            <p>{profile.email}</p>
+            <button onClick={logoutHandler}>Log Out</button>
+        </FormWrapper>
     </>
 };
 

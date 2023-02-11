@@ -23,6 +23,6 @@ export const HeaderApp = () => {
                 <a href={'/profile'}>{profile.name}</a>
                 <img style={{width: '45px', height: '45px'}} alt='avatar' src={avatar}></img>
             </div>
-            : <Button onClick={() => navigate('/login')} color={'primary'} variant="contained">Sign in</Button>}
+            : <Button onClick={() => navigate('/login')} color={'primary'} variant="contained">Sing in</Button>}
     </HeaderWrapper>
 }

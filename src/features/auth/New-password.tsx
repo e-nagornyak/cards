@@ -58,7 +58,7 @@ export const NewPassword: FC = () => {
                     variant={'contained'}
                     color={'primary'}
                 >
-                    Sign in
+                    Sing in
                 </Button>
             </FormGroup>
         </form>

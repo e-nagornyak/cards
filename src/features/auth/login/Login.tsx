@@ -12,6 +12,7 @@ import {TextField} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {LoginSchema} from "./login-shema";
 import {InputPassword} from "../../InputPassword";
+import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 
 type FormData = yup.InferType<typeof LoginSchema>;
 
@@ -38,6 +39,7 @@ export const Login: FC = () => {
     }
 
     return <>
+        <FormWrapper>
         <h2>Sign in</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
@@ -57,7 +59,7 @@ export const Login: FC = () => {
                 <FormControlLabel
                     label={'Remember me'}
                     control={<Checkbox {...register('rememberMe')} />}/>
-                <NavLink style={{textDecoration: 'none'}} to={'/forgot-password'}>Forgot Password?</NavLink>
+                <NavLink className={'link-forgot-password'} to={'/forgot-password'}>Forgot Password?</NavLink>
                 <Button
                     disabled={status === 'loading'}
                     type={'submit'}
@@ -66,9 +68,10 @@ export const Login: FC = () => {
                 >
                     Sign in
                 </Button>
-                <p style={{textAlign: 'center'}}>Already have an account?</p>
-                <NavLink to={'/signup'}>Sign Up</NavLink>
+                <p style={{textAlign:'center'}}>Already have an account?</p>
+                <NavLink  className={'forgot-password-paragraph'} to={'/signup'}>Sign Up</NavLink>
             </FormGroup>
         </form>
+        </FormWrapper>
     </>
 };

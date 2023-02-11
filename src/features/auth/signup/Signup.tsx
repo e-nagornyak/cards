@@ -10,6 +10,7 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import {signUpSchema} from "./signup-shema";
 import {registerTC} from "../auth-reducer";
+import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 
 type FormData = yup.InferType<typeof signUpSchema>;
 
@@ -42,6 +43,7 @@ export const Signup: FC = () => {
     }
 
     return <>
+        <FormWrapper>
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
@@ -72,8 +74,9 @@ export const Signup: FC = () => {
                     Sign Up
                 </Button>
                 <p>Already have an account?</p>
-                <NavLink to={'/login'}>Sing Ip</NavLink>
+                <NavLink className={'link-sign-up'} to={'/login'}>Sign In</NavLink>
             </FormGroup>
         </form>
+        </FormWrapper>
     </>
 };

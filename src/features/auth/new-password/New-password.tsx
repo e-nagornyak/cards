@@ -9,6 +9,7 @@ import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {NewPasswordShema} from "./newPassword-shema";
 import {InputPassword} from "../../InputPassword";
+import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 
 type FormData = yup.InferType<typeof NewPasswordShema>;
 
@@ -32,6 +33,7 @@ export const NewPassword: FC = () => {
     }
 
     return <>
+        <FormWrapper>
         <h2>Create new password</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup sx={{display: 'flex', height: '260px', justifyContent: 'space-around'}}>
@@ -51,6 +53,7 @@ export const NewPassword: FC = () => {
                 </Button>
             </FormGroup>
         </form>
+        </FormWrapper>
     </>
 };
 

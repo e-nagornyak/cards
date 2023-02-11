@@ -1,5 +1,5 @@
 import {Dispatch} from "@reduxjs/toolkit";
-import {setAppError} from "../app/app-reducer";
+import {setAppError, setAppStatus} from "../app/app-reducer";
 import axios, {AxiosError} from "axios";
 
 export const errorUtils = (e: Error | AxiosError<{ error: string }>, dispatch: Dispatch) => {
@@ -7,7 +7,9 @@ export const errorUtils = (e: Error | AxiosError<{ error: string }>, dispatch: D
     if (axios.isAxiosError(err)) {
         const error = err.response?.data ? err.response.data.error : err.message
         dispatch(setAppError({error}))
+        dispatch(setAppStatus({status: 'failed'}))
     } else {
         dispatch(setAppError({error: `Native error ${err.message}`}))
+        dispatch(setAppStatus({status: 'failed'}))
     }
 }

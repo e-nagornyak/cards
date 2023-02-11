@@ -1,8 +1,9 @@
-import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, profileAPI} from "../../api/cards-api";
 import {setAppStatus} from "../../app/app-reducer";
 import {errorUtils} from "../../utils/error-utils";
 import {AxiosError} from "axios";
+import {AppThunk} from "../../app/store";
 
 type ProfileType = {
     _id: string
@@ -15,7 +16,6 @@ type ProfileType = {
     rememberMe: boolean
 }
 
-// state
 const initialState = {
     _id: "",
     email: "",
@@ -26,13 +26,12 @@ const initialState = {
     avatar: "",
     rememberMe: false,
 }
-// створюємо reducer and AC
+
 const slice = createSlice({
     name: 'profile',
     initialState: initialState,
     reducers: {
         setProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
-            // state = {...action.payload.profile}
             state._id = action.payload.profile._id
             state.email = action.payload.profile.email
             state.name = action.payload.profile.name
@@ -55,8 +54,7 @@ const slice = createSlice({
 export const profileReducer = slice.reducer
 export const {setProfile, updateNameProfile, updatePhotoProfile} = slice.actions
 
-// thunks
-export const fetchProfileTC = () => async (dispatch: Dispatch) => {
+export const fetchProfileTC = (): AppThunk => async (dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await authAPI.me()
@@ -67,10 +65,10 @@ export const fetchProfileTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppStatus({status: 'idle'}))
     }
 }
-export const updateNameTC = (name: string) => async (dispatch: Dispatch) => {
+export const updateNameTC = (name: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
-        const res = await profileAPI.updateProfile({name})
+        await profileAPI.updateProfile({name})
         dispatch(updateNameProfile({name}))
     } catch (error) {
         errorUtils(error as AxiosError, dispatch)
@@ -78,10 +76,10 @@ export const updateNameTC = (name: string) => async (dispatch: Dispatch) => {
         dispatch(setAppStatus({status: 'idle'}))
     }
 }
-export const updateAvatarTC = (avatar: string) => async (dispatch: Dispatch) => {
+export const updateAvatarTC = (avatar: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
-        const res = await profileAPI.updateProfile({avatar})
+        await profileAPI.updateProfile({avatar})
         dispatch(updatePhotoProfile({avatar}))
     } catch (error) {
         errorUtils(error as AxiosError, dispatch)

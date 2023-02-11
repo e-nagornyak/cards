@@ -1,21 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../api/cards-api";
-import {errorUtils} from "../utils/error-utils";
 import {setIsLoggedIn} from "../features/auth/auth-reducer";
-import {AxiosError} from "axios";
+import {AppThunk} from "./store";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
-    // чи відбувається зараз взаємодія з сервером
     status: 'idle' as RequestStatusType,
-    // глобальні помилки
     error: null as null | string,
-    // true коли відбулась ініціалізація (перевірка користувача)
     isInitialized: false
 }
 
-// створюємо reducer and AC
 const slice = createSlice({
     name: 'app',
     initialState: initialState,
@@ -35,15 +30,14 @@ const slice = createSlice({
 export const appReducer = slice.reducer
 export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 
-
-//thunks
-export const initializeAppTC = () => async (dispatch: any) => {
+export const initializeAppTC = (): AppThunk => async (dispatch) => {
     try {
-        const res = await authAPI.me()
-        dispatch(setAppInitialized({isInitialized: true}))
+        await authAPI.me()
         dispatch(setIsLoggedIn({value: true}))
+        dispatch(setAppStatus({status: 'succeeded'}))
     } catch (error) {
-        errorUtils(error as AxiosError, dispatch)
+        console.error(error)
+        // errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppInitialized({isInitialized: true}))
     }

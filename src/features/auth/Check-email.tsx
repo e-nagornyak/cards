@@ -19,7 +19,7 @@ export const CheckEmail = () => {
             <FormWrapper>
             <h2>Check Email</h2>
             <img src={sendIcon} alt="send icon"/>
-            <p style={{textAlign: 'center'}}>{`We’ve sent an Email with instructions to ${email}`}</p>
+            <p style={{textAlign: 'center'}}>{`We’ve sent an email with instructions to ${email}`}</p>
             <Button
                 onClick={onClickHandler}
                 fullWidth

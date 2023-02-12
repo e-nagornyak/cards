@@ -5,6 +5,7 @@ const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 })
+
 const link = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/#/set-new-password/$token$' : 'https://e-nagornyak.github.io/cards/#/set-new-password/$token$'
 
 export const authAPI = {
@@ -26,8 +27,7 @@ export const authAPI = {
             from: 'test-front-admin <test@email.com>',
             message: `<div style="padding: 15px">
         password recovery link: 
-        <a href={link}>
-        link</a>
+        <a href={link}>link</a>
          </div>`
         }
 
@@ -44,18 +44,30 @@ export const profileAPI = {
     }
 }
 export const packsAPI = {
+    getPacks(params?: packsParamsType) {
+        return instance.get<PacksResponseType>(`/cards/pack`, {params})
+    }
+}
 
-    getPacks(params:any){
-    return instance.get<PacksResponseType>(`/cards/pack`,params)
+export type packsParamsType = {
+    minCardsCount?: number | null,
+    maxCardsCount?: number | null,
+    sortPacks?: string,
+    page?: number,
+    pageCount?: number
+    packName?: string,
+    user_id?: string
 }
-}
-type CardType = {
+
+
+export type CardType = {
     _id: string
     user_id: string
     name: string
     cardsCount: number
     created: string
     updated: string
+    private: boolean
 }
 export type PacksResponseType = {
     cardPacks: Array<CardType>
@@ -64,7 +76,10 @@ export type PacksResponseType = {
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }
+
 export type LoginParamsType = {
     email: string
     password: string

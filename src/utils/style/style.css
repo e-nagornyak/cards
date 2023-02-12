@@ -1,34 +1,46 @@
-.profile-back-packs{
-    position:absolute;
-    left:110px;
-    top:65px;
-    display:flex;
-    align-items:center;
+.profile-back-packs {
+    position: absolute;
+    left: 110px;
+    top: 65px;
+    display: flex;
+    align-items: center;
 }
-.profile-link-to-back{
-    text-decoration:none;
-    color:black;
+
+.profile-link-to-back {
+    text-decoration: none;
+    color: black;
 }
-.circular-progress{
+
+.circular-progress {
     width: 100%;
     position: fixed;
     top: 30%;
     text-align: center;
 }
-.link-forgot-password{
+
+.link-forgot-password {
     text-decoration: none;
     text-align: end;
     margin-bottom: 30px;
 }
-.forgot-password-paragraph{
+
+.forgot-password-paragraph {
     text-align: center;
     font-size: 14px;
     line-height: 24px;
 }
-.link-sign-up{
-    text-align:center;
+
+.forgot-remember {
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
 }
-.table-pagination{
+
+.link-sign-up {
+    text-align: center;
+}
+
+.table-pagination {
     position: relative;
     left: 0;
     bottom: 0;

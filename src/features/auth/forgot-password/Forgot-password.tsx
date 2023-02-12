@@ -6,7 +6,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import {forgotPasswordTC} from "../auth-reducer";
-import {FormWrapper, ParagraphForgot} from '../../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {ForgotSchema} from "./forgot-shema";
@@ -57,9 +57,7 @@ export const ForgotPassword: FC = () => {
                 >
                     Send Instructions
                 </Button>
-                <ParagraphForgot>
-                    <p>Did you remember your password?</p>
-                </ParagraphForgot>
+                    <p className={'forgot-remember'}>Did you remember your password?</p>
             </FormGroup>
         </form>
         <NavLink color={'#366EFF'} to={'/login'}>Try logging in</NavLink>

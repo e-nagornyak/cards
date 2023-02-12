@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const AppWrapper = styled.div`
   height: 90vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #F9F9FA;

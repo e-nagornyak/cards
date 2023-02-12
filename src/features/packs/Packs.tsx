@@ -1,149 +1,73 @@
-import * as React from 'react';
+import React from 'react';
+import {useEffect} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import '../../utils/style/style.css'
+import {SuperTableHead} from "../table/SuperTableHead";
+import {FilterPanel} from "./filter-panel/FilterPanel";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {fetchPacksTC} from "./Packs-reducer";
+import {SuperTableBody} from "../table/SuperTableBody";
+import {SuperPagination} from "../table/SuperPagination";
+import {changePage, changePageCount, setSortPacks} from "./filter-panel/Filter-panel-reducer";
 
+export type namePacksType = 'name' | 'cardsCount' | 'updated' | 'user_name' | 'actions'
+export type columnsPacksType = { id: namePacksType, label: string, sort: boolean }
 
-interface Column {
-    id: 'name' | 'card' | 'population' | 'size' | 'density';
-    label: string;
-    minWidth?: number;
-    align?: 'right';
-    format?: (value: number) => string;
-}
+const packsColumns: columnsPacksType[] = [
+    {id: 'name', label: 'Name', sort: true},
+    {id: 'cardsCount', label: 'Cards', sort: true},
+    {id: 'updated', label: 'Last Updated', sort: true},
+    {id: 'user_name', label: 'Created by', sort: true},
+    {id: 'actions', label: 'Actions', sort: false},
+]
 
-const columns: readonly Column[] = [
-    {id: 'name', label: 'Name', minWidth: 170},
-    {id: 'card', label: 'Cards', minWidth: 100},
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toFixed(2),
-    },
-];
+export const Packs = () => {
+    console.log('Packs rendering')
+    const dispatch = useAppDispatch()
+    const cardPacksTotalCount = useAppSelector(state => state.packsFilter.cardPacksTotalCount)
+    const page = useAppSelector(state => state.packsFilter.page)
+    const pageCount = useAppSelector(state => state.packsFilter.pageCount)
+    const packs = useAppSelector(state => state.packs)
+    const search = useAppSelector(state => state.packsFilter.packName)
+    const isMyPacks = useAppSelector(state => state.packsFilter.isMyPacks)
+    const sort = useAppSelector(state => state.packsFilter.sortPacks)
 
-interface Data {
-    name: string;
-    card: string;
-    population: number;
-    size: number;
-    density: number;
-}
-
-function createData(
-    name: string,
-    card: string,
-    population: number,
-    size: number,
-): Data {
-    const density = population / size;
-    return {name, card, population, size, density};
-}
-
-const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
-];
-
-export default function Packs() {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+    const changePageHandler = (event: unknown, newPage: number) => {
+        dispatch(changePage({page: newPage + 1}))
     };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
+    const changeRowsPerPageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(changePageCount({pageCount: +event.target.value}))
     };
 
-    return (
-        <>
-            <Paper sx={{width: '80%', overflow: 'hidden'}}>
-                <TableContainer sx={{maxHeight: 440}}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{minWidth: column.minWidth}}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row) => {
-                                    return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={row.card}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        {column.format && typeof value === 'number'
-                                                            ? column.format(value)
-                                                            : value}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 15]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    labelRowsPerPage={'Cards per page'}
-                />
-            </Paper>
-        </>
-    );
+    const sorColumnsHandler = (sort: string) => {
+        dispatch(setSortPacks({sort}))
+    }
+
+    useEffect(() => {
+        dispatch(fetchPacksTC())
+    }, [page, pageCount, search, isMyPacks, sort])
+
+    return <>
+        <FilterPanel/>
+        <Paper sx={{width: '80%', overflow: 'hidden'}}>
+            <TableContainer sx={{maxHeight: 440}}>
+                <Table stickyHeader aria-label="sticky table">
+                    <SuperTableHead changeSort={sorColumnsHandler} columns={packsColumns}/>
+                    <SuperTableBody columns={packsColumns} rows={packs}/>
+                </Table>
+            </TableContainer>
+        </Paper>
+        <SuperPagination
+            page={page}
+            pageCount={pageCount}
+            totalCount={cardPacksTotalCount}
+            rowsPerPageOptions={[4, 10, 25]}
+            onPageChange={changePageHandler}
+            onRowsPerPageChange={changeRowsPerPageHandler}
+        />
+    </>
 }
+
+

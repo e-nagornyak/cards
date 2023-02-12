@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../api/cards-api";
 import {setIsLoggedIn} from "../features/auth/auth-reducer";
 import {AppThunk} from "./store";
+import {setProfile} from "../features/profile/profile-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -32,8 +33,9 @@ export const {setAppError, setAppInitialized, setAppStatus} = slice.actions
 
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
     try {
-        await authAPI.me()
+        const res = await authAPI.me()
         dispatch(setIsLoggedIn({value: true}))
+        dispatch(setProfile({profile: res.data}))
         dispatch(setAppStatus({status: 'succeeded'}))
     } catch (error) {
         console.error(error)

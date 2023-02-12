@@ -6,8 +6,8 @@ import {CircularProgress, LinearProgress} from '@mui/material';
 import {initializeAppTC} from './app-reducer';
 import './App.css';
 import '../utils/style/style.css'
-import {AppWrapper, FormWrapper} from '../utils/StyledComponents/StyledComponents';
-import {ErrorSnackbar} from '../features/ErrorSnackBar/ErrorSnackBar';
+import {AppWrapper} from '../utils/StyledComponents/StyledComponents';
+import {ErrorSnackbar} from '../features/errorSnackBar/ErrorSnackBar';
 
 export const App = () => {
     const dispatch = useAppDispatch()

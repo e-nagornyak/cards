@@ -1,10 +1,10 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {ChangeIconWrapper, FormWrapper, ProfileIcon} from '../../utils/StyledComponents/StyledComponents';
 import avatar from '../../assets/image/avatar.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import {fetchProfileTC, updateNameTC} from './profile-reducer';
+import {updateNameTC} from './profile-reducer';
 import {EditableSpan} from '../EditableSpan';
 import {logoutTC} from '../auth/auth-reducer';
 import arrow from '../../assets/image/Lesson 1/arrow.svg'
@@ -15,9 +15,9 @@ export const Profile: FC = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const profile = useAppSelector(state => state.profile)
 
-    useEffect(() => {
-        dispatch(fetchProfileTC())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(fetchProfileTC())
+    // }, [])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>

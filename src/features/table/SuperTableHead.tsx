@@ -4,14 +4,15 @@ import TableCell from "@mui/material/TableCell";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import TableHead from "@mui/material/TableHead";
 import {columnsPacksType} from "../packs/Packs";
+import {ColumnsCardsType} from '../friends-packs/FriendsPacks';
 
 
-export type nameCardsType = 'question' | 'answer' | 'lastUpdate' | 'grade' | ''
-export type columnsCardsType = { id: nameCardsType, label: string, sort: boolean }
+// export type nameCardsType = 'question' | 'answer' | 'lastUpdate' | 'grade' | ''
+// export type columnsCardsType = { id: nameCardsType, label: string, sort: boolean }
 
 
 type SuperTableHeadPropsType = {
-    columns: columnsPacksType[] | columnsCardsType[]
+    columns: columnsPacksType[] | ColumnsCardsType[]
     changeSort: (sort: string) => void
 }
 

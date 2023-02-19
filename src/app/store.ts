@@ -6,13 +6,17 @@ import {appReducer} from "./app-reducer";
 import {profileReducer} from "../features/profile/profile-reducer";
 import {packsReducer} from '../features/packs/Packs-reducer';
 import {packsFilterReducer} from "../features/packs/filter-panel/Filter-panel-reducer";
+import {friendsPacksReducer} from '../features/friends-packs/friends-packs-reducer';
+import {friendsParamsReducer} from '../features/friends-packs/firends-params-reducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     profile: profileReducer,
     packs: packsReducer,
-    packsFilter: packsFilterReducer
+    packsFilter: packsFilterReducer,
+    cards: friendsPacksReducer,
+    params: friendsParamsReducer
 })
 
 export const store = configureStore({

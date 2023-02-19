@@ -45,6 +45,7 @@ export const Login: FC = () => {
             <FormGroup>
                 <TextField
                     {...register("email")}
+                    placeholder={'example@gmail.com'}
                     margin={"normal"}
                     label={"Email"}
                     fullWidth
@@ -55,7 +56,9 @@ export const Login: FC = () => {
                     name={'password'}
                     label={'Password'}
                     margin={"normal"}
-                    control={control}/>
+                    control={control}
+                    placeholder={'example111'}
+                />
                 <FormControlLabel
                     label={'Remember me'}
                     control={<Checkbox {...register('rememberMe')} />}/>

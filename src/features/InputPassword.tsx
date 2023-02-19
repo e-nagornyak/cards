@@ -10,9 +10,10 @@ type InputPasswordPropsType = {
     label: string
     margin: 'normal' | 'none' | 'dense'
     control: any
+    placeholder?: string
 }
 
-export const InputPassword: FC<InputPasswordPropsType> = ({name, label, margin, control}) => {
+export const InputPassword: FC<InputPasswordPropsType> = ({name, label, margin, control,placeholder}) => {
     const [showPassword, setShowPassword] = useState(false);
     const {error, isTouched} = control.getFieldState(name)
 
@@ -23,6 +24,7 @@ export const InputPassword: FC<InputPasswordPropsType> = ({name, label, margin, 
         type={showPassword ? 'text' : 'password'}
         label={label}
         margin={margin}
+        placeholder={placeholder}
         id="outlined-error-helper-text"
         {...control.register(name)}
         helperText={error?.message}

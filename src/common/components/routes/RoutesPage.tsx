@@ -8,11 +8,12 @@ import {Signup} from "../../../features/auth/signup/Signup";
 import {NewPassword} from "../../../features/auth/new-password/New-password";
 import {ForgotPassword} from "../../../features/auth/forgot-password/Forgot-password";
 import {Packs} from "../../../features/packs/Packs";
+import FriendsPacks from '../../../features/friends-packs/FriendsPacks';
 
 export const RoutesPage = () => {
     return <Routes>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/pack-list" element={<h1>Is`s packlist</h1>}/>
+        <Route path="/friends-packs/:packId" element={<FriendsPacks/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/packs" element={<Packs/>}/>

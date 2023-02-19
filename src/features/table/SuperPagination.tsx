@@ -29,6 +29,7 @@ export const SuperPagination: FC<SuperPaginationPropsType> =
             onPageChange={onPageChange}
             onRowsPerPageChange={onRowsPerPageChange}
             ActionsComponent={TablePaginationActions}
+            labelRowsPerPage={'Cards per page'}
         />
     }
 ;

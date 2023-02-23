@@ -1,19 +1,19 @@
 import React, {useEffect} from 'react';
-import {FilterPanel} from "./filter-panel/FilterPanel";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {fetchPacksTC} from "./Packs-reducer";
-import {SuperPagination} from "../table/pagination/SuperPagination";
-import {changePage, changePageCount, setSortPacks} from "./filter-panel/Filter-panel-reducer";
-import {NavLink} from "react-router-dom";
+import {FilterPanel} from './filter-panel/FilterPanel';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {fetchPacksTC} from './Packs-reducer';
+import {SuperPagination} from '../table/pagination/SuperPagination';
+import {changePage, changePageCount, setSortPacks} from './filter-panel/Filter-panel-reducer';
+import {NavLink} from 'react-router-dom';
 import styles from '../table/Table.module.scss'
-import IconButton from "@mui/material/IconButton";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {TableHead} from "../table/table-head/TableHead";
-import {PackHeader} from "./pack-header/PackHeader";
+import IconButton from '@mui/material/IconButton';
+import SchoolIcon from '@mui/icons-material/School';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {TableHead} from '../table/table-head/TableHead';
+import {PackHeader} from './pack-header/PackHeader';
 import s from './Packs.module.scss'
-import {Empty} from "../empty/Empty";
+import {Empty} from '../empty/Empty';
 
 export type ColumnsType = { id: string, label: string, sort: boolean, }
 const packsColumns: ColumnsType[] = [
@@ -79,20 +79,18 @@ export const Packs = () => {
                         <SchoolIcon fontSize={'small'}/>
                     </IconButton>
                     {p.private && <>
-                        <IconButton onClick={() => alert('change name')}>
-                            <EditIcon fontSize={'small'}/>
-                        </IconButton>
-                        <IconButton onClick={() => alert('delete')}>
-                            <DeleteOutlineIcon fontSize={'small'}/>
-                        </IconButton>
+                      <IconButton onClick={() => alert('change name')}>
+                        <EditIcon fontSize={'small'}/>
+                      </IconButton>
+                      <IconButton onClick={() => alert('delete')}>
+                        <DeleteOutlineIcon fontSize={'small'}/>
+                      </IconButton>
                     </>}
                 </td>
             </tr>)}
             </tbody>
         </table>
-        {!packs.length && <>
-           <Empty/>
-        </>}
+        {!packs.length && <Empty/>}
         <SuperPagination
             className={s.pagination}
             page={page}

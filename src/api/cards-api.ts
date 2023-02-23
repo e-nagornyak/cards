@@ -68,6 +68,7 @@ export type CardType = {
     created: string
     updated: string
     private: boolean
+    user_name: string
 }
 export type PacksResponseType = {
     cardPacks: Array<CardType>

@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 5px;
+}
+
+.btn {
+  text-transform: uppercase;
+  height: 50px;
+  font-size: 17px;
+  width: 150px;
+  background-color: #212042;
+  color: white;
+  border-radius: 15px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #212042;
+    color: #212042;
+    background-color: white;
+  }
+}

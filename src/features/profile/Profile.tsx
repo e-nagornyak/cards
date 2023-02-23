@@ -1,23 +1,24 @@
-import React, {FC} from 'react';
-import {Navigate, NavLink} from 'react-router-dom';
+import React, {FC, useEffect} from 'react';
+import {Navigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {ChangeIconWrapper, FormWrapper, ProfileIcon} from '../../utils/StyledComponents/StyledComponents';
 import avatar from '../../assets/image/avatar.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import {updateNameTC} from './profile-reducer';
+import {fetchProfileTC, updateNameTC} from './profile-reducer';
 import {EditableSpan} from '../EditableSpan';
 import {logoutTC} from '../auth/auth-reducer';
-import arrow from '../../assets/image/Lesson 1/arrow.svg'
 import './../../utils/style/style.css'
+import {BackPackList} from "../back-pack-list/BackPackList";
 
 export const Profile: FC = () => {
+    console.log('Profile rendering')
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const profile = useAppSelector(state => state.profile)
 
-    // useEffect(() => {
-    //     dispatch(fetchProfileTC())
-    // }, [])
+    useEffect(() => {
+        dispatch(fetchProfileTC())
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
@@ -28,18 +29,12 @@ export const Profile: FC = () => {
     const changeTitleHandler = (title: string) => dispatch(updateNameTC(title))
     const logoutHandler = () => dispatch(logoutTC())
 
-    return <>
-        <div className={'profile-back-packs'}>
-            <img src={arrow} alt="arrow"/>
-            <NavLink className={'profile-link-to-back'} to={'/packs'}>
-                Back to Packs List
-            </NavLink>
-        </div>
 
+    return <>
+        <BackPackList/>
         <FormWrapper>
             <h2>Personal Information</h2>
             <div style={{position: 'relative'}}>
-                {/*<ProfileIcon src={profile.avatar ? profile.avatar : avatar} alt="avat"/>*/}
                 <ProfileIcon src={avatar} alt="avat"/>
                 <ChangeIconWrapper onClick={changePhotoHandler}>
                     <PhotoCameraIcon sx={{color: 'white'}}/>

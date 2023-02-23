@@ -1,0 +1,12 @@
+.title {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26.82px;
+  word-break: break-word;
+  max-width: 70%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

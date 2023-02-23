@@ -32,15 +32,7 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setProfile(state, action: PayloadAction<{ profile: ProfileType }>) {
-            state._id = action.payload.profile._id
-            state.email = action.payload.profile.email
-            state.name = action.payload.profile.name
-            state.publicCardPacksCount = action.payload.profile.publicCardPacksCount
-            state.created = action.payload.profile.created
-            state.updated = action.payload.profile.updated
-            state.avatar = action.payload.profile.avatar
-            state.avatar = action.payload.profile.avatar
-            state.rememberMe = action.payload.profile.rememberMe
+            return action.payload.profile
         },
         updateNameProfile(state, action: PayloadAction<{ name: string }>) {
             state.name = action.payload.name

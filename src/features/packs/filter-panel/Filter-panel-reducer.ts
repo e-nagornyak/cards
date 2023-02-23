@@ -1,13 +1,18 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk} from "../../../app/store";
+import {errorUtils} from "../../../utils/error-utils";
+import {AxiosError} from "axios";
 
 const initialState = {
-    rangeOptions: 100,
+    //min and max value for range
+    maxRange: 80,
+    minRange: 0,
+    // params
     min: 0,
-    max: 100,
+    max: 0,
     sortPacks: '',
     page: 1,
-    pageCount: 4,
+    pageCount: 10,
     packName: '',
     cardPacksTotalCount: 0,
     isMyPacks: false
@@ -17,14 +22,22 @@ const slice = createSlice({
     name: 'filter',
     initialState: initialState,
     reducers: {
-        changeRangeValue(state, action: PayloadAction<{ rangeOptions: number }>) {
-            state.rangeOptions = action.payload.rangeOptions
+        setMaxRangeValue(state, action: PayloadAction<{ max: number }>) {
+            state.maxRange = action.payload.max
+        },
+        setMinRangeValue(state, action: PayloadAction<{ min: number }>) {
+            state.minRange = action.payload.min
+        },
+        changeTotalCount(state, action: PayloadAction<{ count: number }>) {
+            state.cardPacksTotalCount = action.payload.count
         },
         changeSearchValue(state, action: PayloadAction<{ packName: string }>) {
             state.packName = action.payload.packName
         },
         changePrivate(state, action: PayloadAction<{ isMyPacks: boolean }>) {
             state.isMyPacks = action.payload.isMyPacks
+            state.min = 0
+            state.max = 0
         },
         changeMin(state, action: PayloadAction<{ min: number }>) {
             state.min = action.payload.min
@@ -41,8 +54,12 @@ const slice = createSlice({
         changePage(state, action: PayloadAction<{ page: number }>) {
             state.page = action.payload.page
         },
-        changeTotalCount(state, action: PayloadAction<{ count: number }>) {
-            state.cardPacksTotalCount = action.payload.count
+        resetParams(state) {
+            state.min = 0
+            state.max = 0
+            state.sortPacks = ''
+            state.packName = ''
+            state.isMyPacks = false
         }
     }
 })
@@ -57,17 +74,17 @@ export const {
     changePageCount,
     setSortPacks,
     changeTotalCount,
-    changeRangeValue,
-    // resetParams,
+    setMinRangeValue,
+    setMaxRangeValue,
+    resetParams,
 } = slice.actions
 
 export const fetchParamsTC = (): AppThunk => async (dispatch) => {
     // dispatch(setAppStatus({status: 'loading'}))
-    // try {
-    //     // const res = await packsAPI.getPacks()
-    //
-    // } catch (error) {
-    //     errorUtils(error as AxiosError, dispatch)
-    // }
+    try {
+
+    } catch (error) {
+        errorUtils(error as AxiosError, dispatch)
+    }
 }
 

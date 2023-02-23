@@ -1,0 +1,50 @@
+.wrapper {
+  position: absolute;
+  top: 9%;
+  left: 10%;
+}
+
+
+.link {
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  background-image: linear-gradient(
+                  to right,
+                  #54b3d6,
+                  #54b3d6 50%,
+                  #000 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+
+  &:before {
+    content: '';
+    background: #54b3d6;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 0;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    background-position: 0;
+
+    path {
+      transition: all 0.5s ease-in-out;
+      fill: #54b3d6;
+    }
+  }
+
+  &:hover::before {
+    width: 85%;
+  }
+}

@@ -38,7 +38,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
         dispatch(setProfile({profile: res.data}))
         dispatch(setAppStatus({status: 'succeeded'}))
     } catch (error) {
-        console.error(error)
+        console.warn(error)
         // errorUtils(error as AxiosError, dispatch)
     } finally {
         dispatch(setAppInitialized({isInitialized: true}))

@@ -1,100 +1,75 @@
-import React, {ChangeEvent, useEffect} from 'react';
-import Button from "@mui/material/Button";
-import {Slider} from "@mui/material";
+import React, {useEffect, useState} from 'react';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {changeMax, changeMin, changePrivate, changeSearchValue, fetchParamsTC} from "./Filter-panel-reducer";
+import {changeMax, changeMin, changePrivate, changeSearchValue, resetParams} from "./Filter-panel-reducer";
+import {Range} from "./range/Range";
+import {SearchInput} from "../../../common/components/search-input/SearchInput";
+import {useDebounce} from "../../../hooks/useDebounce";
+import s from './FilterPanel.module.scss'
+import {Button} from "../../button/Button";
 
 export const FilterPanel = () => {
     const dispatch = useAppDispatch()
-    const searchPackNameValue = useAppSelector(state => state.packsFilter.packName)
-    const myPacks = useAppSelector(state => state.packsFilter.isMyPacks)
-    const minValue = useAppSelector(state => state.packsFilter.min)
-    const maxValue = useAppSelector(state => state.packsFilter.max)
-    const rangeOptions = useAppSelector(state => state.packsFilter.rangeOptions)
+    const myPacks = useAppSelector(state => state.packsParams.isMyPacks)
+    const minRange = useAppSelector(state => state.packsParams.minRange)
+    const maxRange = useAppSelector(state => state.packsParams.maxRange)
 
+    const [valueRange, setValueRange]  = useState([minRange, maxRange])
 
-    const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeSearchValue({packName: e.currentTarget.value}))
-    }
-    const clickMyHandler = () => {
-        dispatch(changePrivate({isMyPacks: true}))
-    }
-    const clickAllHandler = () => {
-        dispatch(changePrivate({isMyPacks: false}))
-    }
-    const changeValueHandler = (value: number[]) => {
-        if (value[0] !== minValue) {
-            dispatch(changeMin({min: value[0]}))
-        }
-        if (value[1] !== maxValue) {
-            dispatch(changeMax({max: value[1]}))
+    useEffect(() => {
+        setValueRange([minRange, maxRange]);
+    },[minRange,maxRange])
 
-        }
-    }
     const resetParamsHandler = () => {
-        // dispatch(resetParams())
+        setValue('')
+        dispatch(resetParams())
+        setValueRange([minRange, maxRange]);
     }
+
+    // buttons
+    const clickMyHandler = () => dispatch(changePrivate({isMyPacks: true}))
+    const clickAllHandler = () => dispatch(changePrivate({isMyPacks: false}))
+
+    // range
+    const changeValueHandler = (value: number[]) => {
+        setValueRange(value)
+    }
+
+    const onChangeCommitted  = (value: number[] ) => {
+        dispatch(changeMin({min: value[0]}))
+        dispatch(changeMax({max: value[1]}))
+    }
+
+    // search input
+    const [value, setValue] = useState('')
+    const debounceValue = useDebounce(value, 750)
+    const inputOnChange = (value: string) => setValue(value)
 
 
     useEffect(() => {
-        dispatch(fetchParamsTC())
-    }, [searchPackNameValue, myPacks, minValue, maxValue])
+        dispatch(changeSearchValue({packName: debounceValue}))
+    }, [debounceValue])
 
-    return <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: '80%',
-        gap: '20px',
-        alignItems: 'flex-end',
-        marginBottom: '10px'
-    }}>
-        <div>
-            <h4>Search</h4>
-            <input value={searchPackNameValue} onChange={searchHandler} type="text"/>
+    return <div className={s.wrapper}>
+        <div className={s.filter_item}>
+            <span>Search</span>
+            <SearchInput className={s.input} value={value} onChange={inputOnChange}/>
         </div>
-        <div>
-            <h4>Show packs cards</h4>
-            <Button onClick={clickMyHandler} color={myPacks ? 'primary' : 'inherit'}
-                    variant={"contained"}>My</Button>
-            <Button onClick={clickAllHandler} color={!myPacks ? 'primary' : 'inherit'}
-                    variant={"contained"}>All</Button>
+        <div className={`${s.filter_item} ${s.btn_group}`}>
+            <span>Show packs cards</span>
+            <div>
+                <Button className={myPacks ? s.btn_active : ''} onClick={clickMyHandler} title={'My'}/>
+                <Button className={!myPacks ? s.btn_active : ''} onClick={clickAllHandler} title={'All'}/>
+            </div>
         </div>
-        <div>
-            <h4>Number of cards</h4>
-            <RangeSlider onChange={changeValueHandler} rangeOptions={rangeOptions} value={[minValue, maxValue]}/>
+        <div className={s.filter_item}>
+            <span>Number of cards</span>
+            <Range value={valueRange} max={maxRange} min={minRange} onChange={changeValueHandler} onChangeCommitted={onChangeCommitted}/>
         </div>
-        <div style={{border: '1px solid black'}}>
+        <div className={s.filter_reset}>
             <FilterAltOffIcon onClick={resetParamsHandler} cursor={'pointer'}/>
         </div>
     </div>
 
 };
 
-type RangeSliderPropsType = {
-    value: [min: number, max: number]
-    onChange: (value: number[]) => void
-    rangeOptions: number
-
-}
-const RangeSlider = ({rangeOptions, value, onChange}: RangeSliderPropsType) => {
-
-
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        onChange(newValue as number[])
-    };
-
-
-    return <div style={{width: '300px', display: 'flex', gap: '10px'}}>
-        <span style={{padding: '5px', border: '1px solid black'}}>{value[0]}</span>
-        <Slider
-            max={rangeOptions}
-            getAriaLabel={() => 'Temperature range'}
-            value={value}
-            onChange={handleChange}
-            valueLabelDisplay="auto"
-        />
-        <span style={{padding: '5px', border: '1px solid black'}}>{value[1]}</span>
-
-    </div>
-}

@@ -3,6 +3,7 @@ import {TablePaginationActions} from "./TablePaginationActions";
 import TablePagination from "@mui/material/TablePagination";
 
 type SuperPaginationPropsType = {
+    className?: string
     rowsPerPageOptions: number[],
     totalCount: number
     pageCount: number
@@ -13,6 +14,7 @@ type SuperPaginationPropsType = {
 
 export const SuperPagination: FC<SuperPaginationPropsType> =
     ({
+         className,
          onRowsPerPageChange,
          rowsPerPageOptions,
          totalCount,
@@ -21,8 +23,9 @@ export const SuperPagination: FC<SuperPaginationPropsType> =
          onPageChange
      }) => {
         return <TablePagination
+            className={className}
+            component={'span'}
             rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
             count={totalCount}
             rowsPerPage={pageCount}
             page={page - 1}

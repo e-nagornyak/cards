@@ -8,7 +8,7 @@ import {fetchProfileTC, updateNameTC} from './profile-reducer';
 import {EditableSpan} from '../EditableSpan';
 import {logoutTC} from '../auth/auth-reducer';
 import './../../utils/style/style.css'
-import {BackPackList} from "../back-pack-list/BackPackList";
+import {BackPackList} from '../back-pack-list/BackPackList';
 
 export const Profile: FC = () => {
     console.log('Profile rendering')

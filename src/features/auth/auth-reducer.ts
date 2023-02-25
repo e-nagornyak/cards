@@ -1,9 +1,9 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {authAPI, LoginParamsType, typeForNewPassword} from '../../api/cards-api';
 import {setAppStatus} from '../../app/app-reducer';
-import {errorUtils} from "../../utils/error-utils";
-import {AxiosError} from "axios";
-import {AppThunk} from "../../app/store";
+import {errorUtils} from '../../utils/error-utils';
+import {AxiosError} from 'axios';
+import {AppThunk} from '../../app/store';
 
 const initialState = {
     isLoggedIn: false,

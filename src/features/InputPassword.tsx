@@ -24,6 +24,7 @@ export const InputPassword: FC<InputPasswordPropsType> = ({name, label, margin, 
         type={showPassword ? 'text' : 'password'}
         label={label}
         margin={margin}
+        color={'secondary'}
         placeholder={placeholder}
         id="outlined-error-helper-text"
         {...control.register(name)}

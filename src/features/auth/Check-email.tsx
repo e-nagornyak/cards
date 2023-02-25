@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import sendIcon from "../../assets/image/send-message.svg"
-import {FormWrapper} from '../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../utils/styled-components/StyledComponents';
 
 export const CheckEmail = () => {
     const [email, setEmail] = useState<string | null>('')

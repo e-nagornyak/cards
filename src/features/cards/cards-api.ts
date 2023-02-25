@@ -1,4 +1,4 @@
-import {instance} from '../../api/cards-api';
+import {CardType, instance} from '../../api/cards-api';
 
 export const cardsAPI = {
     getCards(params: CardParamsType) {
@@ -13,16 +13,7 @@ export type CardParamsType = {
     page: number,
     pageCount: number
 }
-export type CardType = {
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    updated: string
-    _id: string
-}
+
 export type CardsResponseType = {
     cards: CardType[],
     cardsTotalCount: number,

@@ -9,14 +9,22 @@ type PropsType = {
     min: number
 }
 
-export const Range: FC<PropsType> = memo(({value, max, min, onChange, onChangeCommitted}) => {
+export const Range: FC<PropsType> = memo((
+    {
+        value,
+        max,
+        min,
+        onChange,
+        onChangeCommitted
+    }) => {
 
     const onChangeHandler = (event: React.SyntheticEvent | Event, newValue: number | number[]) => onChange(newValue as number[])
-    const onCommitted = (event: React.SyntheticEvent | Event , value: number | number[]) => onChangeCommitted(value as number[])
+    const onCommitted = (event: React.SyntheticEvent | Event, value: number | number[]) => onChangeCommitted(value as number[])
 
     return <div style={{width: '300px', display: 'flex', gap: '10px'}}>
-        <span style={{padding: '5px', border: '1px solid black'}}>{value[0]}</span>
+        <span style={{textAlign: 'center', width: '25px', padding: '5px', border: '1px solid black'}}>{value[0]}</span>
         <Slider
+            color={"secondary"}
             max={max}
             onChangeCommitted={onCommitted}
             min={min}
@@ -24,6 +32,6 @@ export const Range: FC<PropsType> = memo(({value, max, min, onChange, onChangeCo
             value={value}
             valueLabelDisplay="auto"
         />
-        <span style={{padding: '5px', border: '1px solid black'}}>{value[1]}</span>
+        <span style={{textAlign: 'center', width: '25px', padding: '5px', border: '1px solid black'}}>{value[1]}</span>
     </div>
 })

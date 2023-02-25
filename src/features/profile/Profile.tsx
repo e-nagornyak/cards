@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {Navigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {ChangeIconWrapper, FormWrapper, ProfileIcon} from '../../utils/StyledComponents/StyledComponents';
+import {ChangeIconWrapper, FormWrapper, ProfileIcon} from '../../utils/styled-components/StyledComponents';
 import avatar from '../../assets/image/avatar.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import {fetchProfileTC, updateNameTC} from './profile-reducer';

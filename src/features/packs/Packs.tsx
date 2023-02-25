@@ -3,17 +3,18 @@ import {FilterPanel} from "./filter-panel/FilterPanel";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {fetchPacksTC} from "./Packs-reducer";
 import {SuperPagination} from "../table/pagination/SuperPagination";
-import {changePage, changePageCount, setSortPacks} from "./filter-panel/Filter-panel-reducer";
+import {
+    changePage,
+    changePageCount,
+    setSortPacks
+} from "./filter-panel/Filter-panel-reducer";
 import {NavLink} from "react-router-dom";
 import styles from '../table/Table.module.scss'
-import IconButton from "@mui/material/IconButton";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {TableHead} from "../table/table-head/TableHead";
 import {PackHeader} from "./pack-header/PackHeader";
 import s from './Packs.module.scss'
 import {Empty} from "../empty/Empty";
+import {PackActions} from "../pack-actions/PackActions";
 
 export type ColumnsType = { id: string, label: string, sort: boolean, }
 const packsColumns: ColumnsType[] = [
@@ -35,8 +36,9 @@ export const Packs = () => {
     const min = useAppSelector(state => state.packsParams.min)
     const sort = useAppSelector(state => state.packsParams.sortPacks)
     const search = useAppSelector(state => state.packsParams.packName)
+    const myId = useAppSelector(state => state.profile._id)
     // packs
-    const packs = useAppSelector(state => state.packs)
+    const packs = useAppSelector(state => state.packs.packs)
 
     const changePageHandler = (event: unknown, newPage: number) => {
         dispatch(changePage({page: newPage + 1}))
@@ -70,28 +72,19 @@ export const Packs = () => {
             </thead>
             <tbody>
             {packs.map(p => <tr key={p._id}>
-                <td data-label="Name"><NavLink to={`/cards/${p._id}`}>{p.name}</NavLink></td>
+                <td data-label="Name"><NavLink to={`/cards/${p._id}`}>{p.name}</NavLink>
+                </td>
                 <td data-label="Cards">{p.cardsCount}</td>
                 <td data-label="Last Updated">{p.updated.slice(0, 10)}</td>
                 <td data-label="Created by">{p.user_name}</td>
-                <td data-label="Actions">
-                    <IconButton disabled={p.cardsCount === 0}>
-                        <SchoolIcon fontSize={'small'}/>
-                    </IconButton>
-                    {p.private && <>
-                        <IconButton onClick={() => alert('change name')}>
-                            <EditIcon fontSize={'small'}/>
-                        </IconButton>
-                        <IconButton onClick={() => alert('delete')}>
-                            <DeleteOutlineIcon fontSize={'small'}/>
-                        </IconButton>
-                    </>}
+                <td data-label="CardActions">
+                    <PackActions pack={p}/>
                 </td>
             </tr>)}
             </tbody>
         </table>
         {!packs.length && <>
-           <Empty/>
+            <Empty/>
         </>}
         <SuperPagination
             className={s.pagination}

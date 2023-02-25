@@ -6,7 +6,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import {forgotPasswordTC} from "../auth-reducer";
-import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../../utils/styled-components/StyledComponents';
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {ForgotSchema} from "./forgot-shema";
@@ -53,7 +53,7 @@ export const ForgotPassword: FC = () => {
                     disabled={status === 'loading'}
                     type={'submit'}
                     variant={'contained'}
-                    color={'primary'}
+                    color={'secondary'}
                 >
                     Send Instructions
                 </Button>

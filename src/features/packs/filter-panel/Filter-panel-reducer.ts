@@ -5,7 +5,7 @@ import {AxiosError} from "axios";
 
 const initialState = {
     //min and max value for range
-    maxRange: 80,
+    maxRange: 0,
     minRange: 0,
     // params
     min: 0,
@@ -78,13 +78,4 @@ export const {
     setMaxRangeValue,
     resetParams,
 } = slice.actions
-
-export const fetchParamsTC = (): AppThunk => async (dispatch) => {
-    // dispatch(setAppStatus({status: 'loading'}))
-    try {
-
-    } catch (error) {
-        errorUtils(error as AxiosError, dispatch)
-    }
-}
 

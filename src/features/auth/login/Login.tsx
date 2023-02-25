@@ -12,7 +12,7 @@ import {TextField} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {LoginSchema} from "./login-shema";
 import {InputPassword} from "../../InputPassword";
-import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../../utils/styled-components/StyledComponents';
 
 type FormData = yup.InferType<typeof LoginSchema>;
 
@@ -48,6 +48,7 @@ export const Login: FC = () => {
                     placeholder={'example@gmail.com'}
                     margin={"normal"}
                     label={"Email"}
+                    color={'secondary'}
                     fullWidth
                     id={"outlined-error-helper-text"}
                     helperText={errors.email?.message}
@@ -67,7 +68,7 @@ export const Login: FC = () => {
                     disabled={status === 'loading'}
                     type={'submit'}
                     variant={'contained'}
-                    color={'primary'}
+                    color={'secondary'}
                 >
                     Sign in
                 </Button>

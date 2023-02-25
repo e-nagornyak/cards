@@ -36,7 +36,7 @@ export const ModalBox = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 395px;
-  padding: 10px;
+  padding: 20px;
   min-height: 240px;
   background: white;
 `

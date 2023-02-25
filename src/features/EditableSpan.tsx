@@ -40,6 +40,7 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
             label="NickName" variant="standard"
             // onBlurCapture={activatedViewMode}
             value={title}
+            color={'secondary'}
             id="outlined-error"
             error={title.trim() === '' || title.length >= 20}
             autoFocus
@@ -52,7 +53,7 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
                             sx={{padding: '0', minWidth: '50px', marginBottom: '3px'}}
                             variant={"contained"}
                             onClick={activatedViewMode}
-                            color={'primary'}
+                            color={'secondary'}
                         >
                             SAVE
                         </Button>

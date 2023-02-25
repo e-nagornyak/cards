@@ -1,16 +1,17 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {fetchCards} from "./cards-reducer";
-import {changeCardPage, changeCardPageCount, changeSortCards} from "./cards-params-reducer";
+import {
+    changeCardPage,
+    changeCardPageCount,
+    changeSortCards
+} from "./cards-params-reducer";
 import {SearchInput} from "../../common/components/search-input/SearchInput";
 import {SuperPagination} from "../table/pagination/SuperPagination";
 import SettingsIcon from '@mui/icons-material/Settings';
 import {Rating} from "@mui/material";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import EditIcon from '@mui/icons-material/Edit';
 import {ColumnsType} from "../packs/Packs";
-import IconButton from "@mui/material/IconButton";
 import styles from "../table/Table.module.scss";
 import s from './Cards.module.scss'
 import {Title} from "../../common/components/title/Title";
@@ -19,6 +20,7 @@ import {BackPackList} from "../back-pack-list/BackPackList";
 import {CardsEmpty} from "./cards-empty/CardsEmpty";
 import {useDebounce} from "../../hooks/useDebounce";
 import {Button} from "../button/Button";
+import {CardActions} from "../card-actions/CardActions";
 
 const cardsColumns: ColumnsType[] = [
     {id: 'question', label: 'Question', sort: true},
@@ -30,16 +32,17 @@ const cardsColumns: ColumnsType[] = [
 
 export const Cards: FC = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const {packId} = useParams<{ packId: string }>()
+
     const cards = useAppSelector(state => state.cards.cards)
     const packName = useAppSelector(state => state.cards.packName)
-    const packUserId = useAppSelector(state => state.cards.packUserId)
+    // params
     const packPrivate = useAppSelector(state => state.cards.packPrivate)
-    const {packId} = useParams<{ packId: string }>()
     const page = useAppSelector(state => state.cardsParams.page)
     const pageCount = useAppSelector(state => state.cardsParams.pageCount)
     const sortCards = useAppSelector(state => state.cardsParams.sortCards)
     const cardsTotalCount = useAppSelector(state => state.cardsParams.cardsTotalCount)
-
     //input
     const [value, setValue] = useState('')
     const debounceValue = useDebounce(value, 750)
@@ -63,10 +66,16 @@ export const Cards: FC = () => {
     return <div className={s.wrapper}>
         <div className={s.name_wrapper}>
             <BackPackList className={s.back_to_list}/>
-            <Title title={packName}/>
-            {packPrivate && <SettingsIcon/>}
-            {!!cards.length && <Button className={s.learn_btn} title={'Learn to pack'} onClick={() => {
-            }}/>}
+            <div className={s.card_setting}>
+                <Title title={packName}/>
+                {packPrivate && <SettingsIcon/>}
+            </div>
+            {!!cards.length &&
+                <Button
+                    className={s.learn_btn}
+                    title={'Learn to pack'}
+                    onClick={() => navigate(`/learn-card/${packId}`)}
+                />}
         </div>
         {cards.length
             ? <div className={s.table_wrapper}>
@@ -93,13 +102,8 @@ export const Cards: FC = () => {
                         <td data-label="Grade">
                             <Rating readOnly value={c.grade}/>
                         </td>
-                        <td data-label="Actions">
-                            <IconButton disabled={!packPrivate} onClick={() => alert('bla')}>
-                                <EditIcon fontSize={'small'}/>
-                            </IconButton>
-                            <IconButton disabled={!packPrivate} onClick={() => alert('bla')}>
-                                <DeleteOutlineIcon fontSize={'small'}/>
-                            </IconButton>
+                        <td data-label="CardActions">
+                            <CardActions card={c}/>
                         </td>
                     </tr>)}
                     </tbody>
@@ -113,8 +117,7 @@ export const Cards: FC = () => {
                     onRowsPerPageChange={changeRowsPerPageHandler}
                 />
             </div>
-            : <CardsEmpty onClick={() => {
-            }}/>
+            : <CardsEmpty/>
         }
     </div>
 };

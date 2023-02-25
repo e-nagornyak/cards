@@ -16,6 +16,7 @@ export const SearchInput: FC<PropsType> = ({className, value, onChange, label, f
     return <TextField
         className={className}
         margin={'none'}
+        color={'secondary'}
         placeholder={'Provide your text'}
         label={label}
         fullWidth={fullWidth}

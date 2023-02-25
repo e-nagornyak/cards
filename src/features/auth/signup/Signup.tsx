@@ -10,7 +10,7 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import {signUpSchema} from "./signup-shema";
 import {registerTC} from "../auth-reducer";
-import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../../utils/styled-components/StyledComponents';
 
 type FormData = yup.InferType<typeof signUpSchema>;
 
@@ -69,7 +69,7 @@ export const Signup: FC = () => {
                     disabled={status === 'loading'}
                     type={'submit'}
                     variant={'contained'}
-                    color={'primary'}
+                    color={'secondary'}
                 >
                     Sign Up
                 </Button>

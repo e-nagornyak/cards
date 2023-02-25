@@ -9,7 +9,7 @@ import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {NewPasswordShema} from "./newPassword-shema";
 import {InputPassword} from "../../InputPassword";
-import {FormWrapper} from '../../../utils/StyledComponents/StyledComponents';
+import {FormWrapper} from '../../../utils/styled-components/StyledComponents';
 
 type FormData = yup.InferType<typeof NewPasswordShema>;
 
@@ -47,7 +47,7 @@ export const NewPassword: FC = () => {
                     disabled={status === 'loading'}
                     type={'submit'}
                     variant={'contained'}
-                    color={'primary'}
+                    color={'secondary'}
                 >
                     Sing in
                 </Button>

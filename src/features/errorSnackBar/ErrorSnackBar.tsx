@@ -12,17 +12,14 @@ export const ErrorSnackbar = () => {
         if (reason === 'clickaway') {
             return
         }
-        dispatch(setAppError({error: null}));
+        dispatch(setAppError({error: null}))
     }
 
-    return (
-        <div>
-            <Snackbar open={error !== null} autoHideDuration={3000} onClose={handleClose}>
-                <Alert variant="filled" severity="error" onClose={handleClose}>
-                    {error}
-                </Alert>
-            </Snackbar>
-        </div>
-    )
-
+    return <div>
+        <Snackbar open={error !== null} autoHideDuration={3000} onClose={handleClose}>
+            <Alert variant="filled" severity="error" onClose={handleClose}>
+                {error}
+            </Alert>
+        </Snackbar>
+    </div>
 }

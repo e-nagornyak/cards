@@ -9,11 +9,13 @@ import {NewPassword} from "../../../features/auth/new-password/New-password";
 import {ForgotPassword} from "../../../features/auth/forgot-password/Forgot-password";
 import {Packs} from "../../../features/packs/Packs";
 import {Cards} from "../../../features/cards/Cards";
+import {LearnPage} from "../../../features/learn-page/LearnPage";
 
 export const RoutesPage = () => {
     return <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/cards/:packId" element={<Cards/>}/>
+        <Route path="/learn-card/:cardId" element={<LearnPage/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/packs" element={<Packs/>}/>

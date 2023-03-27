@@ -7,8 +7,19 @@
   box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   align-items: center;
 
+  .logo_wrapper {
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 5px;
+    font-size: 29px;
+    font-style: italic;
+  }
+
   .logo {
     margin-left: 50px;
+    width: 75px;
+    height: 53px;
   }
 }
 

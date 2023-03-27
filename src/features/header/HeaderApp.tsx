@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import headerIcon from '../../assets/image/icon_logo.svg'
+import React from 'react';
+import headerIcon from '../../assets/image/icon_logo.png'
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../hooks/hooks";
 import s from './HeaderApp.module.scss'
@@ -12,7 +12,10 @@ export const HeaderApp = () => {
     const profile = useAppSelector(state => state.profile)
 
     return <header className={s.wrapper}>
-        <img className={s.logo} src={headerIcon} alt={'logo'}/>
+        <div className={s.logo_wrapper}>
+            <img className={s.logo} src={headerIcon} alt={'logo'}/>
+            <span>Learn with us</span>
+        </div>
         {isLoggedIn
             ? <HeaderProfile name={profile.name}/>
             : <Button onClick={() => navigate('/login')} className={s.btn} title={"Sign in"}/>
